@@ -2,9 +2,7 @@ package com.maccuci.sh;
 
 import com.maccuci.sh.models.Model;
 import com.maccuci.sh.models.ModelType;
-import com.maccuci.sh.repository.ModelRepository;
 import com.maccuci.sh.service.ModelService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
