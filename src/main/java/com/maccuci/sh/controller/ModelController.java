@@ -1,6 +1,5 @@
 package com.maccuci.sh.controller;
 
-import com.maccuci.sh.config.HibernateConfig;
 import com.maccuci.sh.models.Model;
 import com.maccuci.sh.service.ModelService;
 import org.hibernate.Session;

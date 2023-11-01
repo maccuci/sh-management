@@ -19,7 +19,6 @@ public class HardwareManagementApplication {
         ModelService modelService = context.getBean(ModelService.class);
 
         Model model = new Model("Ryzen 5 5600X", "A new CPU focused on performance for gaming.", ModelType.CPU.name(), "ryzen.com", 105.0F, 105.0F, 105.0F, new Date(), new Date(), new Date(), 4);
-        model.updateRatingStars(3);
         modelService.addModel(model);
     }
 }
