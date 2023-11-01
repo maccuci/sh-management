@@ -10,7 +10,6 @@ A straightforward tool for setting up and managing hardware systems, capable of 
 - Water Coolers
 - Fans
 - Disks
-- Partitions
 - RAMs
 - Motherboards
 - Monitors.

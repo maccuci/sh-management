@@ -2,14 +2,11 @@ package com.maccuci.sh.controller;
 
 import com.maccuci.sh.models.Model;
 import com.maccuci.sh.service.ModelService;
-import org.hibernate.Session;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/models")
@@ -33,11 +30,9 @@ public class ModelController {
         }
     }
 
-    @PostMapping
-    public void updateRatingStars(@RequestBody Model modelRequest, Integer rs) {
-        Model find = modelService.getModelById(modelRequest.getId());
-        if(find != null) {
-            find.updateRatingStars(rs);
-        }
+    @GetMapping
+    public ResponseEntity<Iterable<Model>> getAllModels() {
+        Iterable<Model> models = modelService.getAllModels();
+        return new ResponseEntity<>(models, HttpStatus.OK);
     }
 }

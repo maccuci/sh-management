@@ -10,6 +10,8 @@ public enum ModelType {
     WATER_COOLER,
     FAN,
     CABINET,
+    SSD,
+    HDD,
 
     MOUSE,
     MOUSE_PAD,
