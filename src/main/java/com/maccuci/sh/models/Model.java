@@ -40,6 +40,6 @@ public class Model {
 
     public void updateRatingStars(Integer rs) {
         if(rs < 0 || rs > 5) throw new IllegalArgumentException("Rating stars must be between 0 and 5");
-        if(rs > ratingStars) ratingStars = rs;
+        ratingStars = rs;
     }
 }
