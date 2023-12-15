@@ -7,9 +7,6 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
-
-import java.util.Optional;
-
 @Service
 public class ModelService {
 
@@ -26,44 +23,33 @@ public class ModelService {
 
     @Transactional
     public void updateRatingStars(@PathVariable Long id, Integer rs) {
-        Optional<Model> find = modelRepository.findById(id);
-        if(find.isPresent()) {
-            Model model = find.get();
+        modelRepository.findById(id).ifPresent(model -> {
             if(model.isInStock()) {
                 model.updateRatingStars(rs);
                 modelRepository.save(model);
             }
-        }
+        });
     }
 
     @Transactional
     public void updateStatusModel(@PathVariable Long id, StatusModel status) {
-        Optional<Model> find = modelRepository.findById(id);
-
-        if(find.isPresent()) {
-            Model model = find.get();
+        modelRepository.findById(id).ifPresent(model -> {
             model.setStatus(status.name());
             modelRepository.save(model);
-        }
+        });
     }
 
     @Transactional
     public void updateAvailableQuantity(@PathVariable Long id, boolean a, Integer quantity) {
-        Optional<Model> find = modelRepository.findById(id);
-        int q = 0;
+        if (quantity < 0) throw new IllegalArgumentException("Quantity must be positive");
 
-        if(quantity < 0) throw new IllegalArgumentException("Quantity must be positive");
-        if(find.isPresent()) {
-            Model model = find.get();
-            if(!a) {
-                q = model.getAvailableQuantity() - quantity;
-                if(q < 0) throw new IllegalArgumentException("The value of quantity is greater than the available quantity.");
-                model.setAvailableQuantity(q);
-            }
-            q = model.getAvailableQuantity() + quantity;
-            model.setAvailableQuantity(q);
-            modelRepository.save(model);
-        }
+        Model model = modelRepository.findById(id).orElseThrow(() -> new IllegalStateException("Model with id " + id + " does not exist"));
+        int q = a ? model.getAvailableQuantity() + quantity : model.getAvailableQuantity() - quantity;
+
+        if (q < 0) throw new IllegalStateException("Quantity must be positive");
+
+        model.setAvailableQuantity(q);
+        modelRepository.save(model);
     }
 
     public Model getModelById(Long id) {
