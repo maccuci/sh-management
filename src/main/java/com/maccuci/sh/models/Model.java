@@ -1,8 +1,9 @@
 package com.maccuci.sh.models;
 
+import com.maccuci.sh.enums.StatusModel;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Date;
 
@@ -18,9 +19,13 @@ public class Model {
     private String urlReference;
     private Float currentPrice, bestPrice, worstPrice;
     private Date currentPriceDate, bestPriceDate, worstPriceDate;
+    @Setter
+    private StatusModel status;
     private Integer ratingStars;
+    @Setter
+    private Integer availableQuantity;
 
-    public Model(String name, String description, String type, String urlReference, Float currentPrice, Float bestPrice, Float worstPrice, Date currentPriceDate, Date bestPriceDate, Date worstPriceDate, Integer ratingStars) {
+    public Model(String name, String description, String type, String urlReference, Float currentPrice, Float bestPrice, Float worstPrice, Date currentPriceDate, Date bestPriceDate, Date worstPriceDate, StatusModel status, Integer ratingStars, Integer availableQuantity) {
         this.name = name;
         this.description = description;
         this.type = type;
@@ -31,7 +36,9 @@ public class Model {
         this.currentPriceDate = currentPriceDate;
         this.bestPriceDate = bestPriceDate;
         this.worstPriceDate = worstPriceDate;
+        this.status = status;
         this.ratingStars = ratingStars;
+        this.availableQuantity = availableQuantity;
     }
 
     public Model() {
@@ -42,4 +49,9 @@ public class Model {
         if(rs < 0 || rs > 5) throw new IllegalArgumentException("Rating stars must be between 0 and 5");
         ratingStars = rs;
     }
+
+    public boolean isInStock() {
+        return status == StatusModel.AVAILABLE;
+    }
+
 }

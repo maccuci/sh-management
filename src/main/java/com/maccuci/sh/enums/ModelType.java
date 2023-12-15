@@ -1,4 +1,4 @@
-package com.maccuci.sh.models;
+package com.maccuci.sh.enums;
 
 public enum ModelType {
     CPU,
