@@ -20,7 +20,7 @@ public class Model {
     private Float currentPrice, bestPrice, worstPrice;
     private Date currentPriceDate, bestPriceDate, worstPriceDate;
     @Setter
-    private StatusModel status;
+    private String status;
     private Integer ratingStars;
     @Setter
     private Integer availableQuantity;
@@ -36,7 +36,7 @@ public class Model {
         this.currentPriceDate = currentPriceDate;
         this.bestPriceDate = bestPriceDate;
         this.worstPriceDate = worstPriceDate;
-        this.status = status;
+        this.status = status.name();
         this.ratingStars = ratingStars;
         this.availableQuantity = availableQuantity;
     }
@@ -51,7 +51,8 @@ public class Model {
     }
 
     public boolean isInStock() {
-        return status == StatusModel.AVAILABLE;
+        StatusModel s = StatusModel.valueOf(status);
+        return s == StatusModel.AVAILABLE;
     }
 
 }

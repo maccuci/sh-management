@@ -42,13 +42,13 @@ public class ModelService {
 
         if(find.isPresent()) {
             Model model = find.get();
-            model.setStatus(status);
+            model.setStatus(status.name());
             modelRepository.save(model);
         }
     }
 
     @Transactional
-    public void updateAvailableQuantity(@PathVariable Long id, boolean a , Integer quantity) {
+    public void updateAvailableQuantity(@PathVariable Long id, boolean a, Integer quantity) {
         Optional<Model> find = modelRepository.findById(id);
         int q = 0;
 
